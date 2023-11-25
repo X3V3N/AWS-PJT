@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Case Management System - Register New Case</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .home {
+            float: left;
+            font-size: 2rem;
+        }
+
+        .Head {
+            font-size: 2rem;
+            font-weight: bolder;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <span class="home"><a href="index.html" title="HOME">🏠</a></span>
+        <span class="Head">New Case</span>
+    </header>
+
+    <main>
+        <form id="caseForm">
+            <label for="caseName">Case Name:</label>
+            <input type="text" id="caseName" name="caseName" required>
+
+            <label for="clientName">Client Name:</label>
+            <input type="text" id="clientName" name="clientName" required>
+
+            <label for="caseType">Case Type:</label>
+            <select id="caseType" name="caseType" required>
+                <option value="civil">Civil</option>
+                <option value="criminal">Criminal</option>
+                <option value="family">Family</option>
+            </select>
+
+            <label for="clientName">Deadline</label>
+            <input type="text" id="Deadline" name="Deadline" placeholder="Enter Number of Days..." required>
+
+            <label for="caseDetails">Case Details:</label>
+            <textarea id="caseDetails" name="caseDetails" rows="4" required></textarea>
+
+            <button type="submit">Download Data</button>
+        </form>
+
+    </main>
+    <script>
+        document.getElementById("caseForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            const formData = new FormData(event.target);
+
+            // Convert form data to a JSON object
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            // Convert JSON object to a string
+            //null: no filtering
+            //2: indentation
+            const jsonString = JSON.stringify(jsonData, null, 2);
+
+            // Create a Blob (Binary Large Object) from the string
+            const blob = new Blob([jsonString], { type: "application/json" });
+
+            // Create a download link
+            const a = document.createElement("a");
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = "formData.json";
+
+            // Append the link to the document
+            document.body.appendChild(a);
+
+            // Trigger a click on the link to start the download
+            a.click();
+
+            // Remove the link from the document
+            document.body.removeChild(a);
+
+            // Release the URL object
+            window.URL.revokeObjectURL(url);
+
+            // Reset the form
+            event.target.reset();
+        });
+    </script>
+</body>
+</html>
