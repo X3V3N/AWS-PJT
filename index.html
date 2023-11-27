@@ -8,32 +8,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     
     <style>
-      h1 {
-        padding-top: 100px;
-        text-align: center;
+      .content {
+        padding-top: 180px;
         width: 50%;
         margin: auto;
-      }
-
-      form {
-        padding-top: 100px;
         text-align: center;
-        width: 50%;
-        margin: auto;
-      }
-  
-      input[type="file"] {
-        padding-left: 12%;
-        margin-bottom: 50px;
       }
   
       button {
+        margin-top: 80px;
         padding: 10px;
         background-color: #4CAF50;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+      }
+
+      a {
+        text-decoration: none;
+      }
+      
+      h5 {
+        color: aliceblue;
       }
     </style>
 </head>
@@ -60,46 +57,12 @@
         </div>
       </nav>
       
-      <h1>Upload Case Files To Cloud</h1>
-
-      <form id="uploadForm">
-        <input type="file" id="fileInput" />
-        <br>
-        <button type="button" onclick="uploadFile()">Upload File</button>
-      </form>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1083.0/aws-sdk.min.js"></script>
+      <div class="content">
+        <h1>Upload Case Files To Cloud</h1>
+        <button><a href="https://s3.console.aws.amazon.com/s3/buckets/testbucket532003?region=us-east-1&tab=objects"><h5>GO TO S3</h5></a></button>
+      </div>
+      
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       
-      <script>
-        AWS.config.update({
-            accessKeyId: 'YOUR_ACCESS_KEY_ID',
-            secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
-            region: 'YOUR_REGION'
-        }); 
-        const s3 = new AWS.S3();
-      
-        function uploadFile() {
-          const fileInput = document.getElementById('fileInput');
-          const file = fileInput.files[0];
-
-          const params = {
-            Bucket: 'YOUR_BUCKET_NAME',
-            Key: file.name,
-            Body: file,
-            ACL: 'public-read' // Optional: Set appropriate ACL based on your requirements
-          };
-
-          s3.upload(params, (err, data) => {
-            if (err) {
-              console.error(err);
-              alert('Error uploading file to S3.');
-            } else {
-              console.log('File uploaded successfully.', data);
-              alert('File uploaded successfully.');
-            }
-          });
-        }
-      </script>
 </body>
 </html>
