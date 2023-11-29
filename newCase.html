@@ -58,6 +58,16 @@
             font-weight: bolder;
         }
 
+        #inp {
+            font-size: 1rem;
+            font-weight: bold;
+            border: solid black 2px;
+        }
+
+        a {
+            text-decoration: none;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -67,7 +77,7 @@
     </header>
 
     <main>
-        <form id="caseForm">
+        <form id="caseForm" action="process_form.php" method="post">
             <label for="caseName">Case Name:</label>
             <input type="text" id="caseName" name="caseName" required>
 
@@ -81,13 +91,15 @@
                 <option value="family">Family</option>
             </select>
 
-            <label for="clientName">Deadline</label>
+            <label for="Deadline">Deadline</label>
             <input type="text" id="Deadline" name="Deadline" placeholder="Enter Number of Days..." required>
 
             <label for="caseDetails">Case Details:</label>
             <textarea id="caseDetails" name="caseDetails" rows="4" required></textarea>
 
             <button type="submit">Download Data</button>
+            <br><br>
+            <a href="https://csvjson.com/json2csv" target="_blank">Convert JSON to CSV</a>
         </form>
 
     </main>
